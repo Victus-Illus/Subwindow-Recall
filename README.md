@@ -6,7 +6,7 @@
    	to read that file to recall them, so that it can reproduce the layout of the subwindows previously set by the user. This saves you the trouble of having to manually set your subwindows sizes and positions every time you open a document.</p>
     
 <h2>Usage</h2>
-	<p>To use Subwindow Recall, all you need to do is enable 'Save Subwindow Layout' in Tools/Scripts, that will make so that the plugin starts creating save files of the subwindows layouts. Then, when you want to recall the layout, use the 'Load Subwindow Layout' in Tools/Scripts</p>
+	<p>To use Subwindow Recall, all you need to do is enable 'Save Subwindow Layout' in Tools/Scripts, that will make so that the plugin starts creating save files of the subwindows layouts every time you save your document. Then, when you want to recall the layout, use the 'Load Subwindow Layout' in Tools/Scripts</p>
 	<p>Shortcuts can be added for both actions.</p>
 	<h3>Tips</h3>
  	<ul>

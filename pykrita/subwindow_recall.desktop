@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Krita/PythonPlugin
+X-KDE-Library=subwindow_recall
+X-Python-2-Compatible=false
+X-Krita-Manual=subwindow_recall_manual.html
+Name=Subwindow Recall
+Comment= Saves the size and positions of subwindows 

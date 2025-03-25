@@ -28,7 +28,7 @@ to recall them, so you don’t have to manually reposition your subwindows every
 
 <h2>Installation</h2>
 <ol>
-	<li>Download the ZIP file from the most recent release.</li>
+	<li>Download the ZIP file from the most recent <a href="https://github.com/Victus-Illus/Subwindow-Recall/releases">release</a>.</li>
 	<li>Follow <a href="https://docs.krita.org/en/user_manual/python_scripting/install_custom_python_plugin.html">this guide</a> to install the plugin.</li>
 	<li>To enable shortcuts, follow the <strong>manual installation</strong> steps (if the actions folder does not exist, you can simply create it).</li>
 </ol>

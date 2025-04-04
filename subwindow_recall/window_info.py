@@ -3,8 +3,6 @@ import re
 from krita import *
 from PyQt5.QtCore import QSize, QPoint
 
-
-
 class WindowInfo():
 
     #Functions to grab the size/position of all currently opened subwindows
@@ -77,7 +75,6 @@ class WindowInfo():
         else:
             file_path = currentLayout
 
-        #file_path = base_name + ".txt"
         if os.path.exists(file_path):
             try:
                 with open(file_path, "r") as f:

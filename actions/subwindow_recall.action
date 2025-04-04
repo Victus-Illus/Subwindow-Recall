@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionCollection version="2" name="Scripts">
+    <Actions category="Scripts">
+        <text>Subwindow Recall</text>
+
+        <Action name="loadSubwindows">
+        <icon></icon>
+        <text>Load Subwindows</text>
+        <whatsThis>loads the size and positions from an existing .txt file of the same name as the document,
+        stored in the same directory, it requires the same number of subwindows as the last time you have
+        saved the subwindows layout</whatsThis>
+        <toolTip></toolTip>
+        <iconText></iconText>
+        <activationFlags>10000</activationFlags>
+        <activationConditions>0</activationConditions>
+        <shortcut></shortcut>
+        <isCheckable>false</isCheckable>
+        <statusTip></statusTip>
+        </Action>
+        
+        <Action name="saveSubwindows">
+        <icon></icon>
+        <text>Save Subwindows</text>
+        <whatsThis>enables saving of subwindows whenever a document is saved, creating a .txt with the same name
+        and directory as the document, following saves will store your last save file as a backup with the extension
+        .txt~ while overwritting the original .txt file </whatsThis>
+        <toolTip></toolTip>
+        <iconText></iconText>
+        <activationFlags>10000</activationFlags>
+        <activationConditions>0</activationConditions>
+        <shortcut></shortcut>
+        <isCheckable>true</isCheckable>
+        <statusTip></statusTip>
+        </Action>
+        
+        <Action name="subwindowMenu">
+            <icon></icon>
+            <text>Subwindow Menu</text>
+            <whatsThis>Opens a GUI to manage layouts from Subwindow Recall</whatsThis>
+            <toolTip></toolTip>
+            <iconText></iconText>
+            <activationFlags>10000</activationFlags>
+            <activationConditions>0</activationConditions>
+            <shortcut></shortcut>
+            <isCheckable>false</isCheckable>
+            <statusTip></statusTip>
+        </Action>
+    </Actions>
+</ActionCollection>

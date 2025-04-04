@@ -1,28 +1,54 @@
 from krita import *
-from .window_info import window_info
+from .window_info import WindowInfo
+from PyQt5.QtWidgets import QWidget, QMessageBox
+from PyQt5.QtCore import QTimer
 
+def show_window(title, message):
+    QMessageBox.information(QWidget(), title, message)
 
-class organizer():
-    def resizeWindows():
-        # [print([a.objectName(), a.text()]) for a in Krita.instance().actions()]
-        sizes = window_info().get_sizes()
-        positions = window_info().get_positions()
+class Organizer():
+    def process_subwindows(self, mdi, sizes, positions, window, doc):
+        def check_and_update():
+            current_count = len(mdi.subWindowList())
+
+            if current_count < len(sizes):
+                # Add one subwindow
+                window.addView(doc)
+            elif current_count > len(sizes):
+                # Remove one subwindow
+                mdi.closeActiveSubWindow()
+            else:
+                # Stop when the count matches `sizes`
+                self.resize_and_move_subwindows(mdi, sizes, positions)
+                return
+
+            # Call this function again after 250ms
+            QTimer.singleShot(250, check_and_update)
+
+        # Start the process
+        check_and_update()
+
+    def resize_windows(self):
+        sizes = WindowInfo().get_sizes()
+        positions = WindowInfo().get_positions()
         doc = Application.activeDocument()
         window = Application.activeWindow()
         main = window.qwindow()
         mdi = main.centralWidget().currentWidget()
-        doc.save
         subwindow = mdi.currentSubWindow()
         subwindows = mdi.subWindowList()
 
-        if len(subwindows) > len(sizes):
-            raise ValueError("Not enough sizes provided for all subwindows, please reduce the amount of subwindows or create a new save for the current subwindow count")
-            
-        if len(subwindows) < len(sizes):
-            raise ValueError("Not enough subwindows provided for all sizes, please increase the amount of subwindows or create a new save for the current subwindow count")
+        if not subwindows:
+            show_window("No initial subwindow created", "Please start a document to create a subwindow first")
+            return
 
+        if subwindow.isMaximized():
+            subwindow.showNormal()
+
+        self.process_subwindows(mdi, sizes, positions, window, doc)
+
+    def resize_and_move_subwindows(self, mdi, sizes, positions):
+        subwindows = mdi.subWindowList()
         for i, subwindow in enumerate(subwindows):
-            index = i
-            subwindow.resize(sizes[index])
-            subwindow.move(positions[index])
-
+            subwindow.resize(sizes[i])
+            subwindow.move(positions[i])

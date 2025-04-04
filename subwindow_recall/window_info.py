@@ -5,7 +5,7 @@ from PyQt5.QtCore import QSize, QPoint
 
 
 
-class window_info():
+class WindowInfo():
 
     #Functions to grab the size/position of all currently opened subwindows
     
@@ -39,8 +39,16 @@ class window_info():
         sizes = []
         pattern = re.compile(r"PyQt5\.QtCore\.QSize\((\d+), (\d+)\)")
         doc = Application.activeDocument()
+
+        currentLayout = Application.readSetting("subwindowRecall", "currentLayout", "")
         base_name, ext = os.path.splitext(doc.fileName())
-        file_path = base_name + ".txt"
+        #If currentLayout is not set, search for the .txt in the file directory
+        if currentLayout == "":
+            file_path = base_name + ".txt"
+        #Else, use the currentLayout
+        else:
+            file_path = currentLayout
+
         if os.path.exists(file_path):
             try:
                 with open(file_path, "r") as f:
@@ -59,8 +67,17 @@ class window_info():
         positions = []
         pattern = re.compile(r"PyQt5\.QtCore\.QPoint\((\d+), (\d+)\)")
         doc = Application.activeDocument()
+
+        currentLayout = Application.readSetting("subwindowRecall", "currentLayout", "")
         base_name, ext = os.path.splitext(doc.fileName())
-        file_path = base_name + ".txt"
+        #If currentLayout is not set, search for the .txt in the file directory
+        if currentLayout == "":
+            file_path = base_name + ".txt"
+        #Else, use the currentLayout
+        else:
+            file_path = currentLayout
+
+        #file_path = base_name + ".txt"
         if os.path.exists(file_path):
             try:
                 with open(file_path, "r") as f:

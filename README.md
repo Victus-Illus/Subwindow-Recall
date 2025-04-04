@@ -7,23 +7,24 @@ to recall them, so you don’t have to manually reposition your subwindows every
     
 <h2>How to Use</h2>
 <ol>
-	<li>Enable <strong>"Save Subwindows Layout"</strong> in <code>Tools > Scripts</code>.</li>
+	<li>Enable <strong>"Auto-save layouts"</strong> in <code>Tools > Scripts > SubwindowRecall</code>.</li>
 	<li>Save your document to create a save file of the current subwindows layout
-	<li>Load a saved layout anytime using <strong>"Load Subwindows Layout"</strong> in <code>Tools > Scripts</code>.</li>
+	<li>Load your last saved layout anytime using <strong>"Load Subwindows Layout"</strong> in <code>Tools > Scripts</code>.</li>
 	<li>(Optional) Set up shortcuts for quicker access.</li>
 </ol>
 <h3>Tips</h3>
 <ul>
-	<li>It is recommended setting a shortcut for <strong>"Load Subwindows Layout"</strong>, as it is the one you will be using the most.</li>
-	<li>This plugin works best in conjunction with Krita Sessions, which can be acessed by <code>File > Sessions</code>. That saves you the time of manually opening the right amount of subwindows</li>
-	<li>You are able to reuse layouts in different works, all you have to do is copy the .txt file of the layout you wish to reuse, paste it in the same folder as the .kra file, and rename it to same name as that file (<code>drawing 2.kra > drawing 2.txt</code>)
-	<li>A backup file of the current layout is always created whenever you save, with the extension .txt~, to enable it, all you have to do is remove the <strong>"~"</strong></li> 
+	<li>It is recommended setting a shortcut for <strong>"Load Subwindow Layout"</strong>, as it is the one you will be using the most.</li>
+	<li>Is it advised to set a layout directory in any place of your choosing, that allows you to save different layout setups and be able reuse them with ease, without creating duplicates of existing layouts, it can be set in <code>Tools > Scripts > SubwindowRecall > Set layout folder to...</code></li>
+	<li>A backup file of the current layout is always created whenever you save, with the extension .txt~, to re-activate it, all you have to do is remove the ~</li>
+	<li>Whenever you save your document, your current layout is saved, so if you use 'Load Subwindow Layout' in a different document, it will still load your last used layout</li>
+	<li>To enable shortcuts, follow the <strong>manual installation</strong> steps from <a href="https://docs.krita.org/en/user_manual/python_scripting/install_custom_python_plugin.html">this guide</a> (if the actions folder does not exist, you can simply create it).</li>
+	<li>If you have more or less windows than the amount necessary for the selected layout, they will be created or closed automatically</li>
 </ul>
  
 <h2>Requirements</h2>
 <ol>
 	<li><strong> "Subwindow"</strong> is enabled in <code>Settings > Configure Krita > General > Window > Multiple Document Mode</code>.</li>
-	<li>the amount of subwindows must be equal to the amount of when you last saved your document, otherwise a new save will be requested.</li>
 </ol>
 
 <h2>Installation</h2>

@@ -91,6 +91,7 @@ class SubwindowRecall(Extension):
         organizer.resize_windows()
 
     def subwindow_menu(self):
+        #Avoid multiple instances of the menu
         if self.menu_window and self.menu_window.isVisible():
             self.menu_window.raise_()
             self.menu_window.activateWindow()

@@ -22,7 +22,7 @@ class Organizer():
                 self.resize_and_move_subwindows(mdi, sizes, positions)
                 return
 
-            # Call this function again after 250ms
+            # Call this function again after a timer to avoid freezing the UI
             QTimer.singleShot(250, check_and_update)
 
         # Start the process

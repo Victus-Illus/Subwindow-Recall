@@ -43,7 +43,6 @@ class Menu(QDialog):
         layout_folder.clicked.connect(self.menu_actions.set_layout_folder)
         button_layout.addWidget(layout_folder)
 
-        #self.file_list.itemClicked.connect(self.menu_actions.load_selected_layout)
         self.menu_actions.load_layout_folder()
 
         main_layout.addWidget(self.file_list)

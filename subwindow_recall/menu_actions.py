@@ -75,10 +75,13 @@ class MenuActions():
         old_name = self.selected_item_path(item)
         # ask the user for the new name
         user_input, ok = QInputDialog().getText(None, "Rename file", "New name:")
-        if ok:
-            new_name = os.path.join(self.layout_path, user_input + ".txt")
-        else:
+        if not ok or not user_input.strip():
             return
+
+        base_name = os.path.splitext(user_input)[0]
+
+        new_name = os.path.join(self.layout_path, user_input + ".txt")
+
         if os.path.exists(old_name):
             os.rename(old_name, new_name)
             self.load_layout_folder()

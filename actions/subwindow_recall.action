@@ -5,7 +5,7 @@
 
         <Action name="loadSubwindows">
         <icon></icon>
-        <text>Load Subwindows</text>
+        <text>Load Current Layout</text>
         <whatsThis>loads the size and positions from an existing .txt file of the same name as the document,
         stored in the same directory, it requires the same number of subwindows as the last time you have
         saved the subwindows layout</whatsThis>

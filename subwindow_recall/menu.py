@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QCheckBox, QListWidget, QP
 from .menu_actions import MenuActions
 
 class Menu(QDialog):
-    def __init__(self, isToggled: bool, toggle_callback):
+    def __init__(self, isToggled: bool, toggle_callback, last_layout_callback):
         krita_window = Krita.instance().activeWindow().qwindow()
         super().__init__(krita_window)
         self.setWindowTitle("Subwindow Recall")
@@ -22,6 +22,10 @@ class Menu(QDialog):
         save_as_button = QPushButton("Save current layout as...")
         save_as_button.clicked.connect(self.menu_actions.save_as)
         button_layout.addWidget(save_as_button)
+
+        load_current_layout = QPushButton("Load current layout")
+        load_current_layout.clicked.connect(last_layout_callback)
+        button_layout.addWidget(load_current_layout)
 
         load_button = QPushButton("Load selected layout")
         load_button.clicked.connect(lambda: self.menu_actions.load_selected_layout(self.file_list.currentItem()))

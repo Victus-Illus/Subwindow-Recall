@@ -23,7 +23,12 @@ class MenuActions():
         return selected_item
 
     def save_as(self):
-        subwindow_sizes = WindowInfo.find_sizes(self)
+        try:
+            subwindow_sizes = WindowInfo.find_sizes(self)
+        except AttributeError:
+            show_window("No document currently open!", "Please open a document to create a subwindow")
+            return
+
         subwindow_positions = WindowInfo.find_positions(self)
         file_name, _ = QFileDialog.getSaveFileName(None, "Save file as", self.layout_path, "Text file (*.txt);;All Files (*)")
 
@@ -122,5 +127,3 @@ class MenuActions():
         if os.path.exists(path):
             files = [f for f in os.listdir(path) if f.endswith(".txt")]
             self.file_list.addItems(files)
-
-

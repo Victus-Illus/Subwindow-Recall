@@ -111,7 +111,7 @@ class SubwindowRecall(Extension):
         saveSubwindowAction.blockSignals(False)
         saveSubwindowAction.toggled.connect(self.save_event_catcher)
 
-        loadSubwindowsAction = window.createAction("loadSubwindows", "Load Subwindows Layout", "")
+        loadSubwindowsAction = window.createAction("loadSubwindows", "Load Current Layout", "")
         loadSubwindowsAction.triggered.connect(self.load_subwindows)
 
         SubwindowMenu = window.createAction("subwindowMenu", "SubWindow Recall", "tools/scripts")

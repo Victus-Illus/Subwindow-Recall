@@ -97,13 +97,13 @@ class SubwindowRecall(Extension):
             self.menu_window.activateWindow()
             return
 
-        self.menu_window = Menu(self.isToggled, self.save_event_catcher)
+        self.menu_window = Menu(self.isToggled, self.save_event_catcher, self.load_subwindows)
         self.menu_window.exec_()
 
         # When menu is closed, reset the reference
         self.menu_window = None
-
-    def create_actions(self, window):
+    #Krita naming convention requires this function to be called this name and not create_actions
+    def createActions(self, window):
         saveSubwindowAction = window.createAction("saveSubwindows", "Save Subwindows Layout", "")
         saveSubwindowAction.setCheckable(True)
         saveSubwindowAction.blockSignals(True)
@@ -111,7 +111,7 @@ class SubwindowRecall(Extension):
         saveSubwindowAction.blockSignals(False)
         saveSubwindowAction.toggled.connect(self.save_event_catcher)
 
-        loadSubwindowsAction = window.createAction("loadSubwindows", "Load Subwindows Layout", "tools/scripts")
+        loadSubwindowsAction = window.createAction("loadSubwindows", "Load Subwindows Layout", "")
         loadSubwindowsAction.triggered.connect(self.load_subwindows)
 
         SubwindowMenu = window.createAction("subwindowMenu", "SubWindow Recall", "tools/scripts")

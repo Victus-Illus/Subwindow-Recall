@@ -18,21 +18,6 @@
         <statusTip></statusTip>
         </Action>
         
-        <Action name="saveSubwindows">
-        <icon></icon>
-        <text>Save Subwindows</text>
-        <whatsThis>enables saving of subwindows whenever a document is saved, creating a .txt with the same name
-        and directory as the document, following saves will store your last save file as a backup with the extension
-        .txt~ while overwritting the original .txt file </whatsThis>
-        <toolTip></toolTip>
-        <iconText></iconText>
-        <activationFlags>10000</activationFlags>
-        <activationConditions>0</activationConditions>
-        <shortcut></shortcut>
-        <isCheckable>true</isCheckable>
-        <statusTip></statusTip>
-        </Action>
-        
         <Action name="subwindowMenu">
             <icon></icon>
             <text>Subwindow Menu</text>

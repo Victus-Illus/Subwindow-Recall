@@ -29,18 +29,23 @@ class Organizer():
         check_and_update()
 
     def resize_windows(self):
-        sizes = WindowInfo().get_sizes()
-        positions = WindowInfo().get_positions()
+
         doc = Application.activeDocument()
         window = Application.activeWindow()
         main = window.qwindow()
         mdi = main.centralWidget().currentWidget()
+        try:
+            mdi.subWindowList()
+        except AttributeError:
+            show_window("No initial subwindow created", "Please start a document to create a subwindow first")
+            return
+
         subwindow = mdi.currentSubWindow()
         subwindows = mdi.subWindowList()
 
-        if not subwindows:
-            show_window("No initial subwindow created", "Please start a document to create a subwindow first")
-            return
+        sizes = WindowInfo().get_sizes()
+        positions = WindowInfo().get_positions()
+
 
         if subwindow.isMaximized():
             subwindow.showNormal()

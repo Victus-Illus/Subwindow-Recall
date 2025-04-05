@@ -103,7 +103,7 @@ class SubwindowRecall(Extension):
         # When menu is closed, reset the reference
         self.menu_window = None
 
-    def createActions(self, window):
+    def create_actions(self, window):
         saveSubwindowAction = window.createAction("saveSubwindows", "Save Subwindows Layout", "")
         saveSubwindowAction.setCheckable(True)
         saveSubwindowAction.blockSignals(True)

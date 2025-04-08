@@ -8,16 +8,25 @@ class Menu(QDialog):
         krita_window = Krita.instance().activeWindow().qwindow()
         super().__init__(krita_window)
         self.setWindowTitle("Subwindow Recall")
+        #Move to menu_actions so that it can refresh when there's a change
+        vertical_layout = QVBoxLayout()
         main_layout = QHBoxLayout()
         button_layout = QVBoxLayout()
-
+        rename_delete_set_layout = QHBoxLayout()
+        rename_delete_layout = QHBoxLayout()
         save_button = QCheckBox("Auto-save layouts")
         save_button.setCheckable(True)
         save_button.setChecked(isToggled)
         save_button.toggled.connect(toggle_callback)
         button_layout.addWidget(save_button)
         self.file_list = QListWidget()
-        self.menu_actions = MenuActions(self.file_list)
+        self.menu_actions = MenuActions(self.file_list, self.update_current_layout_label)
+        self.current_layout_label = QLabel()
+        self.update_current_layout_label()
+
+
+        vertical_layout.addWidget(self.current_layout_label)
+
 
         save_as_button = QPushButton("Save current layout as...")
         save_as_button.clicked.connect(self.menu_actions.save_as)
@@ -37,21 +46,25 @@ class Menu(QDialog):
 
         rename_layout = QPushButton("Rename layout to...")
         rename_layout.clicked.connect(lambda: self.menu_actions.rename(self.file_list.currentItem()))
-        button_layout.addWidget(rename_layout)
+        rename_delete_layout.addWidget(rename_layout)
 
         delete_layout = QPushButton("Delete selected layout")
         delete_layout.clicked.connect(lambda: self.menu_actions.delete(self.file_list.currentItem() if self.file_list.currentItem() else None))
-        button_layout.addWidget(delete_layout)
+        rename_delete_layout.addWidget(delete_layout)
 
         layout_folder = QPushButton("Set layout folder to...")
         layout_folder.clicked.connect(self.menu_actions.set_layout_folder)
-        button_layout.addWidget(layout_folder)
+        #button_layout.addWidget(layout_folder)
 
         self.menu_actions.load_layout_folder()
 
         main_layout.addWidget(self.file_list)
         main_layout.addLayout(button_layout)
-        self.setLayout(main_layout)
+        rename_delete_set_layout.addLayout(rename_delete_layout)
+        rename_delete_set_layout.addWidget(layout_folder)
+        vertical_layout.addLayout(main_layout)
+        vertical_layout.addLayout(rename_delete_set_layout)
+        self.setLayout(vertical_layout)
         self.show()
 
         self.setup()
@@ -68,3 +81,10 @@ class Menu(QDialog):
 
     def auto_close(self):
         self.close()
+
+    def update_current_layout_label(self):
+        current_layout = Application.readSetting("subwindowRecall", "currentLayout", "")
+        base_name = os.path.splitext(current_layout)[0]
+        layout_name = os.path.basename(base_name)
+
+        self.current_layout_label.setText("The current layout is: " + layout_name)

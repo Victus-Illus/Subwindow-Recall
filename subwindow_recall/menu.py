@@ -8,7 +8,6 @@ class Menu(QDialog):
         krita_window = Krita.instance().activeWindow().qwindow()
         super().__init__(krita_window)
         self.setWindowTitle("Subwindow Recall")
-        #Move to menu_actions so that it can refresh when there's a change
         vertical_layout = QVBoxLayout()
         main_layout = QHBoxLayout()
         button_layout = QVBoxLayout()

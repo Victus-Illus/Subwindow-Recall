@@ -1,6 +1,6 @@
 import os
 from krita import *
-from PyQt5.QtWidgets import QFileDialog, QListWidget, QInputDialog, QMessageBox
+from PyQt5.QtWidgets import QFileDialog, QListWidget, QInputDialog, QMessageBox, QLabel
 from .window_info import WindowInfo
 from .organizer import Organizer
 
@@ -10,9 +10,10 @@ def show_window(title, message):
 class MenuActions():
     organizer = Organizer()
 
-    def __init__(self, file_list):
+    def __init__(self, file_list, current_layout_updater):
         self.file_list = file_list  # Use the list passed from Menu
         self.layout_path = Application.readSetting("subwindowRecall", "layoutDirectory", "")
+        self.update_layout_label = current_layout_updater
 
     def selected_item_path(self, item):
         if item is None:  # Prevent error if no item is selected
@@ -35,6 +36,7 @@ class MenuActions():
         if not file_name:
             print("No directory selected")
             return
+
         base_name, ext = os.path.splitext(file_name)
         file_path = base_name + ".txt"
         backup_file_path = file_path + "~"
@@ -52,13 +54,16 @@ class MenuActions():
                     f.write("%s\n" % item)
         except OSError as e:
             print(f"Error writing file: {e}")
+        Application.writeSetting("subwindowRecall", "currentLayout", file_path)
         self.load_layout_folder()
+        self.update_layout_label()
 
     def load_selected_layout(self, item):
         selected_path = self.selected_item_path(item)
 
         if os.path.exists(selected_path):
             Application.writeSetting("subwindowRecall", "currentLayout", selected_path)
+            self.update_layout_label()
             self.organizer.resize_windows()
         else:
             show_window("File does not exist", "The selected file does not exist, please make sure you have written the file name correctly")
@@ -74,6 +79,7 @@ class MenuActions():
         searched_path = base_name + ".txt"
         if searched_path:
             Application.writeSetting("subwindowRecall", "currentLayout", searched_path)
+            self.update_layout_label()
             self.organizer.resize_windows()
 
     def rename(self, item):
@@ -127,3 +133,4 @@ class MenuActions():
         if os.path.exists(path):
             files = [f for f in os.listdir(path) if f.endswith(".txt")]
             self.file_list.addItems(files)
+

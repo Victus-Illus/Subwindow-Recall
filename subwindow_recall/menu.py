@@ -8,11 +8,13 @@ class Menu(QDialog):
         krita_window = Krita.instance().activeWindow().qwindow()
         super().__init__(krita_window)
         self.setWindowTitle("Subwindow Recall")
+
         vertical_layout = QVBoxLayout()
-        main_layout = QHBoxLayout()
+        main_horizontal_box_layout = QHBoxLayout()
         button_layout = QVBoxLayout()
-        rename_delete_set_layout = QHBoxLayout()
+        secondary_horizontal_box_layout = QHBoxLayout()
         rename_delete_layout = QHBoxLayout()
+
         save_button = QCheckBox("Auto-save layouts")
         save_button.setCheckable(True)
         save_button.setChecked(isToggled)
@@ -23,9 +25,7 @@ class Menu(QDialog):
         self.current_layout_label = QLabel()
         self.update_current_layout_label()
 
-
         vertical_layout.addWidget(self.current_layout_label)
-
 
         save_as_button = QPushButton("Save current layout as...")
         save_as_button.clicked.connect(self.menu_actions.save_as)
@@ -53,16 +53,15 @@ class Menu(QDialog):
 
         layout_folder = QPushButton("Set layout folder to...")
         layout_folder.clicked.connect(self.menu_actions.set_layout_folder)
-        #button_layout.addWidget(layout_folder)
 
         self.menu_actions.load_layout_folder()
 
-        main_layout.addWidget(self.file_list)
-        main_layout.addLayout(button_layout)
-        rename_delete_set_layout.addLayout(rename_delete_layout)
-        rename_delete_set_layout.addWidget(layout_folder)
-        vertical_layout.addLayout(main_layout)
-        vertical_layout.addLayout(rename_delete_set_layout)
+        main_horizontal_box_layout.addWidget(self.file_list)
+        main_horizontal_box_layout.addLayout(button_layout)
+        secondary_horizontal_box_layout.addLayout(rename_delete_layout)
+        secondary_horizontal_box_layout.addWidget(layout_folder)
+        vertical_layout.addLayout(main_horizontal_box_layout)
+        vertical_layout.addLayout(secondary_horizontal_box_layout)
         self.setLayout(vertical_layout)
         self.show()
 

@@ -114,7 +114,7 @@ class SubwindowRecall(Extension):
         loadSubwindowsAction = window.createAction("loadSubwindows", "Load Current Layout", "")
         loadSubwindowsAction.triggered.connect(self.load_subwindows)
 
-        SubwindowMenu = window.createAction("subwindowMenu", "SubWindow Menu", "tools/scripts")
+        SubwindowMenu = window.createAction("subwindowMenu", "Subwindow Recall", "tools/scripts")
         SubwindowMenu.triggered.connect(self.subwindow_menu)
 
 Krita.instance().addExtension(SubwindowRecall(Krita.instance()))

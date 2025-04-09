@@ -20,7 +20,7 @@
         
         <Action name="subwindowMenu">
             <icon></icon>
-            <text>Subwindow Menu</text>
+            <text>Subwindow Recall</text>
             <whatsThis>Opens a GUI to manage layouts from Subwindow Recall</whatsThis>
             <toolTip></toolTip>
             <iconText></iconText>

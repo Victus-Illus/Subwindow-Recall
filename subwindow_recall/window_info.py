@@ -1,7 +1,7 @@
 import os
 import re
 from krita import *
-from PyQt5.QtCore import QSize, QPoint
+from PyQt6.QtCore import QSize, QPoint
 
 class WindowInfo():
 
@@ -35,7 +35,7 @@ class WindowInfo():
 
     def get_sizes(self):
         sizes = []
-        pattern = re.compile(r"PyQt5\.QtCore\.QSize\((\d+), (\d+)\)")
+        pattern = re.compile(r"PyQt6\.QtCore\.QSize\((\d+), (\d+)\)")
         doc = Application.activeDocument()
 
         currentLayout = Application.readSetting("subwindowRecall", "currentLayout", "")
@@ -63,7 +63,7 @@ class WindowInfo():
 
     def get_positions(self):
         positions = []
-        pattern = re.compile(r"PyQt5\.QtCore\.QPoint\((\d+), (\d+)\)")
+        pattern = re.compile(r"PyQt6\.QtCore\.QPoint\((\d+), (\d+)\)")
         doc = Application.activeDocument()
 
         currentLayout = Application.readSetting("subwindowRecall", "currentLayout", "")
@@ -84,7 +84,7 @@ class WindowInfo():
                         if match:
                             width, height = map(int, match.groups())
                             positions.append(QPoint(width, height))                  
-                        elif line =="PyQt5.QtCore.QPoint()":
+                        elif line =="PyQt6.QtCore.QPoint()":
                             positions.append(QPoint(0, 0))
             except Exception as e:
                 print(f"Error reading file: {e}")

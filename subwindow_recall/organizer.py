@@ -1,7 +1,7 @@
 from krita import *
 from .window_info import WindowInfo
-from PyQt5.QtWidgets import QWidget, QMessageBox
-from PyQt5.QtCore import QTimer
+from PyQt6.QtWidgets import QWidget, QMessageBox
+from PyQt6.QtCore import QTimer
 
 def show_window(title, message):
     QMessageBox.information(QWidget(), title, message)

@@ -1,6 +1,6 @@
 import os
 from krita import *
-from PyQt5.QtWidgets import QFileDialog, QListWidget, QInputDialog, QMessageBox, QLabel
+from PyQt6.QtWidgets import QFileDialog, QListWidget, QInputDialog, QMessageBox, QLabel
 from .window_info import WindowInfo
 from .organizer import Organizer
 

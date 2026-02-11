@@ -98,7 +98,7 @@ class SubwindowRecall(Extension):
             return
 
         self.menu_window = Menu(self.isToggled, self.save_event_catcher, self.load_subwindows)
-        self.menu_window.exec_()
+        self.menu_window.exec()
 
         # When menu is closed, reset the reference
         self.menu_window = None

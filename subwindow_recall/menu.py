@@ -1,6 +1,6 @@
 import os
 from krita import *
-from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QCheckBox, QListWidget, QPushButton
+from PyQt6.QtWidgets import QHBoxLayout, QVBoxLayout, QCheckBox, QListWidget, QPushButton
 from .menu_actions import MenuActions
 
 class Menu(QDialog):

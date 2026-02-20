@@ -11,7 +11,7 @@
         saved the subwindows layout</whatsThis>
         <toolTip></toolTip>
         <iconText></iconText>
-        <activationFlags>10000</activationFlags>
+        <activationFlags>00000</activationFlags>
         <activationConditions>0</activationConditions>
         <shortcut></shortcut>
         <isCheckable>false</isCheckable>

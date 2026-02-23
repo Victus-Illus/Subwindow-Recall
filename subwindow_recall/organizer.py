@@ -1,5 +1,5 @@
 from krita import *
-from .window_info import WindowInfo
+from .window_info import WindowInfo, ViewState
 from PyQt6.QtWidgets import QWidget, QMessageBox
 from PyQt6.QtCore import QTimer
 
@@ -7,7 +7,7 @@ def show_window(title, message):
     QMessageBox.information(QWidget(), title, message)
 
 class Organizer():
-    def process_subwindows(self, mdi, sizes, positions, window, doc):
+    def process_subwindows(self, mdi, sizes, positions, settings, window, doc):
         def check_and_update():
             current_count = len(mdi.subWindowList())
 
@@ -19,7 +19,7 @@ class Organizer():
                 mdi.closeActiveSubWindow()
             else:
                 # Stop when the count matches `sizes`
-                self.resize_and_move_subwindows(mdi, sizes, positions)
+                self.resize_and_move_subwindows(mdi, sizes, positions, settings)
                 return
 
             # Call this function again after a timer to avoid freezing the UI
@@ -42,18 +42,28 @@ class Organizer():
 
         subwindow = mdi.currentSubWindow()
         subwindows = mdi.subWindowList()
-
+        views = window.views()
         sizes = WindowInfo().get_sizes()
         positions = WindowInfo().get_positions()
-
+        settings = WindowInfo().get_settings()
 
         if subwindow.isMaximized():
             subwindow.showNormal()
 
-        self.process_subwindows(mdi, sizes, positions, window, doc)
+        self.process_subwindows(mdi, sizes, positions, settings, window, doc)
 
-    def resize_and_move_subwindows(self, mdi, sizes, positions):
+    def resize_and_move_subwindows(self, mdi, sizes, positions, settings):
         subwindows = mdi.subWindowList()
+        views = Application.activeWindow().views()
+
         for i, subwindow in enumerate(subwindows):
             subwindow.resize(sizes[i])
             subwindow.move(positions[i])
+
+        for i, view in enumerate(views):
+            state = settings[i]
+            canvas = view.canvas()
+            canvas.setMirror(state.mirror)
+            canvas.setPreferredCenter(state.center)
+            canvas.setRotation(state.rotation)
+            canvas.setZoomLevel(state.zoom)

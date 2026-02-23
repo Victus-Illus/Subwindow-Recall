@@ -3,6 +3,7 @@ from krita import *
 from .window_info import WindowInfo
 from .organizer import Organizer
 from .menu import Menu
+from .layout_io import write_layout
 
 class SubwindowRecall(Extension):
     #Save subwindows states
@@ -18,14 +19,14 @@ class SubwindowRecall(Extension):
         self.notifier = Application.notifier()
         self.notifier.setActive(True)
         self.notifier.viewCreated.connect(self.on_window_created)
-        
+
         self.saveAction = self.notifier.imageSaved
-         
+
     def on_window_created(self, window):
         #If the documented has saved AND the auto-save toggle is ON
         if self.saveAction and self.isToggled:
             self.saveAction.connect(self.save_action_triggered)
-        
+
     def save_action_triggered(self):
         doc = Krita.instance().activeDocument()
         if not self.isToggled or doc.fileName() == "":
@@ -33,7 +34,8 @@ class SubwindowRecall(Extension):
 
         subwindow_sizes = WindowInfo.find_sizes(self)
         subwindow_positions = WindowInfo.find_positions(self)
-
+        window = Application.activeWindow()
+        views = window.views()
 
         layout_path = Application.readSetting("subwindowRecall", "layoutDirectory", "")
         base_name, ext = os.path.splitext(doc.fileName())
@@ -50,23 +52,8 @@ class SubwindowRecall(Extension):
             file_path = current_layout
         else:
             file_path = default_file_path
+        write_layout(file_path, subwindow_sizes, subwindow_positions, views)
 
-        backup_file_path = file_path + "~"
-
-        if os.path.exists(file_path):
-            try:
-                os.replace(file_path, backup_file_path)
-            except OSError as e:
-                print(f"Error renaming file for backup: {e}")
-        try:
-            with open (file_path, "w", encoding="utf-8") as f:
-
-                for item in subwindow_sizes:
-                    f.write("%s\n" % item)
-                for item in subwindow_positions:
-                    f.write("%s\n" % item)
-        except OSError as e:
-            print(f"Error writing file: {e}")
         Application.writeSetting("subwindowRecall", "currentLayout" , file_path)
 
 
@@ -77,15 +64,15 @@ class SubwindowRecall(Extension):
         if self.saveAction:
             try:
             # Avoid multiple instances of save_action_triggered
-                self.saveAction.disconnect(self.save_action_triggered) 
-               
+                self.saveAction.disconnect(self.save_action_triggered)
+
             except TypeError:
                 pass  # Ignore if it wasn't connected yet
 
             if self.isToggled:  #  Only connect when toggled ON
                 self.saveAction.connect(self.save_action_triggered)
 
-        
+
     def load_subwindows(self):
         organizer = Organizer()
         organizer.resize_windows()

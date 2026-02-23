@@ -3,6 +3,7 @@ from krita import *
 from PyQt6.QtWidgets import QFileDialog, QListWidget, QInputDialog, QMessageBox, QLabel
 from .window_info import WindowInfo
 from .organizer import Organizer
+from .layout_io import write_layout
 
 def show_window(title, message):
     QMessageBox.information(QWidget(), title, message)
@@ -32,6 +33,8 @@ class MenuActions():
 
         subwindow_positions = WindowInfo.find_positions(self)
         file_name, _ = QFileDialog.getSaveFileName(None, "Save file as", self.layout_path, "Text file (*.txt);;All Files (*)")
+        window = Application.activeWindow()
+        views = window.views()
 
         if not file_name:
             print("No directory selected")
@@ -39,21 +42,8 @@ class MenuActions():
 
         base_name, ext = os.path.splitext(file_name)
         file_path = base_name + ".txt"
-        backup_file_path = file_path + "~"
-        if os.path.exists(file_path):
-            try:
-                os.replace(file_path, backup_file_path)
-            except OSError as e:
-                print(f"Error renaming file for backup: {e}")
-        try:
-            with open (file_path, "w", encoding="utf-8") as f:
+        write_layout(file_path, subwindow_sizes, subwindow_positions, views)
 
-                for item in subwindow_sizes:
-                    f.write("%s\n" % item)
-                for item in subwindow_positions:
-                    f.write("%s\n" % item)
-        except OSError as e:
-            print(f"Error writing file: {e}")
         Application.writeSetting("subwindowRecall", "currentLayout", file_path)
         self.load_layout_folder()
         self.update_layout_label()

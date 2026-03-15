@@ -87,6 +87,12 @@ class MenuActions():
             os.rename(old_name, new_name)
             self.load_layout_folder()
 
+        current_layout = Application.readSetting("subwindowRecall", "currentLayout", "")
+
+        if current_layout == old_name:
+            Application.writeSetting("subwindowRecall", "currentLayout", new_name)
+            self.update_layout_label()
+
     def delete(self, item):
         if item is None or item.text().strip() == "":  # Ensure an item is selected
             print("No file selected")
@@ -101,11 +107,11 @@ class MenuActions():
             None,
             "Confirm deletion",
             f"Are you sure you want to delete '{item.text()}'?",
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.No
             )
 
-        if reply == QMessageBox.Yes:
+        if reply == QMessageBox.StandardButton.Yes:
             os.remove(selected_item)
             self.load_layout_folder()
         else:

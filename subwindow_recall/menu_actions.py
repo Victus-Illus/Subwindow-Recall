@@ -112,7 +112,7 @@ class MenuActions():
             print("Deletion canceled")
 
     def set_layout_folder(self):
-        path = QFileDialog.getExistingDirectory(None, "Open directory", "/", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
+        path = QFileDialog.getExistingDirectory(None, "Open directory", "/", QFileDialog.Option.ShowDirsOnly | QFileDialog.Option.DontResolveSymlinks)
         if path:
             Application.writeSetting("subwindowRecall", "layoutDirectory", path)
             self.load_layout_folder()

@@ -29,7 +29,8 @@ class Organizer():
         check_and_update()
 
     def resize_windows(self):
-
+        if Application.readSetting("subwindowRecall", "currentLayout", "") == "":
+            return
         doc = Application.activeDocument()
         window = Application.activeWindow()
         main = window.qwindow()
@@ -46,6 +47,9 @@ class Organizer():
         sizes = WindowInfo().get_sizes()
         positions = WindowInfo().get_positions()
         settings = WindowInfo().get_settings()
+
+        if len(sizes) == 0:
+            return
 
         if subwindow.isMaximized():
             subwindow.showNormal()

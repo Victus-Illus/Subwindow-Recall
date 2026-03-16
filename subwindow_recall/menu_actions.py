@@ -111,9 +111,14 @@ class MenuActions():
             QMessageBox.StandardButton.No
             )
 
+        current_layout = Application.readSetting("subwindowRecall", "currentLayout", "")
+
         if reply == QMessageBox.StandardButton.Yes:
             os.remove(selected_item)
             self.load_layout_folder()
+            if selected_item == current_layout:
+                Application.writeSetting("subwindowRecall", "currentLayout", "")
+                self.update_layout_label()
         else:
             print("Deletion canceled")
 

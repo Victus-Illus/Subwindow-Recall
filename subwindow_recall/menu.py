@@ -85,4 +85,7 @@ class Menu(QDialog):
         base_name = os.path.splitext(current_layout)[0]
         layout_name = os.path.basename(base_name)
 
-        self.current_layout_label.setText("The current layout is: " + layout_name)
+        if layout_name is not "":
+            self.current_layout_label.setText("The current layout is: " + layout_name)
+        else:
+            self.current_layout_label.setText("There is no current layout set.")

@@ -174,3 +174,4 @@ cython_debug/
 .pypirc
 
 extension_test_2.py~
+FIXME.txt
